@@ -1,8 +1,10 @@
 import random
 import pykakasi
 import os
+import re
 from deep_translator import GoogleTranslator
 
+os.system('cls')
 kks = pykakasi.kakasi()
 words = [line.strip() for line in open('popular_jp.txt', encoding='utf-8')]
 hira_right = 0
@@ -20,7 +22,8 @@ while (True):
 		compiled_kana += item['kana']
 		compiled_hira += item['hira']
 		compiled_hepb += item['hepburn']
-	if compiled_kana != english and compiled_hira != english:
+	compiled_hepb = re.sub(r'[\W_]+','',compiled_hepb)
+	if compiled_kana != english and compiled_hira != english and compiled_kana != '' and compiled_hira != '':
 		if random.randint(0, 1) == 0:
 			response = input(compiled_kana + ": ")
 			os.system('cls')
