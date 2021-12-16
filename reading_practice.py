@@ -24,22 +24,39 @@ while (True):
 		compiled_hepb += item['hepburn']
 	compiled_hepb = re.sub(r'[\W_]+','',compiled_hepb)
 	if compiled_kana != english and compiled_hira != english and compiled_kana != '' and compiled_hira != '':
+		passed = False
 		if random.randint(0, 1) == 0:
-			response = input(compiled_kana + ": ")
-			os.system('cls')
+			while not passed:
+				response = input(compiled_kana + ": ")
+				if response == "h":
+					hira_right += 1
+				elif response == "k":
+					kana_right += 1
+				elif response == compiled_hepb:
+					kana_right += 1
+					os.system('cls')
+					print("Correct!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_kana, english))
+					passed = True
+				else:
+					os.system('cls')
+					print("Incorrect!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_kana, english))
+					passed = True
 			kana_total +=1
-			if response == compiled_hepb:
-				kana_right += 1
-				print("Correct!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_kana, english))
-			else:
-				print("Incorrect!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_kana, english))
 		else:
-			response = input(compiled_hira + ": ")
-			os.system('cls')
+			while not passed:
+				response = input(compiled_hira + ": ")
+				if response == "h":
+					hira_right += 1
+				elif response == "k":
+					kana_right += 1
+				elif response == compiled_hepb:
+					hira_right += 1
+					os.system('cls')
+					print("Correct!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_hira, english))
+					passed = True
+				else:
+					os.system('cls')
+					print("Incorrect!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_hira, english))
+					passed = True
 			hira_total +=1
-			if response == compiled_hepb:
-				hira_right += 1
-				print("Correct!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_hira, english))
-			else:
-				print("Incorrect!\nHepburn: {} | Response: {}\nJapanese: {} | English: {}".format(compiled_hepb, response, compiled_hira, english))
 		print("Hiragana {}/{} | Katakana {}/{}\n\n".format(hira_right, hira_total, kana_right, kana_total))
